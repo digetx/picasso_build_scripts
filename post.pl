@@ -39,7 +39,7 @@ sub mk_post_msg {
 
 	my $txt = $tmpl->fill_in(HASH => \%vars);
 
-	die "$TIDext::Template::ERROR" if (! defined $txt);
+	die "$Text::Template::ERROR" if (! defined $txt);
 
 	my ($fh, $fpath) = File::Temp::tempfile();
 
