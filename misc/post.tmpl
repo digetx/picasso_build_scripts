@@ -1,0 +1,19 @@
+Kernel {$KVER} release
+
+[u]Download[/u]: [url]{$DURL}[/url]
+
+[u]Notes:[/u]
+* This is upstream-based kernel release. Proprietary NVIDIA driver won't work with it.
+
+* Due to driver issue, wifi will be lost after resume from suspend. To recover it run following commands from terminal
+[code]#rfkill block 0
+#rfkill unblock 0[/code]
+If doesn't help, try again. If still doesn't help (very unlikely) - reboot. Hopefully, it will get fixed in future releases.
+
+* Let us know if you have any trouble or kernel config lacks some module/feature. Code contributions are welcome as well.
+
+[hr] Code sources:
+[url]https://github.com/digetx/picasso_upstream_support[/url]
+[url]https://bitbucket.org/digetx/picasso_upstream_support[/url]
+Downloads archive:
+[url]https://bitbucket.org/digetx/picasso_upstream_support/downloads[/url]

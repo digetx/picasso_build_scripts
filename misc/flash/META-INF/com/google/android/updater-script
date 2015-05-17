@@ -1,0 +1,28 @@
+ui_print("");
+ui_print("------------------------------------------");
+ui_print("|            Kernel Flasher              |");
+ui_print("------------------------------------------");
+ui_print("");
+
+ui_print("Extracting Resources...");
+package_extract_dir("kernel", "/tmp");
+set_perm(0, 0, 0755, "/tmp/dd");
+set_perm(0, 0, 0755, "/tmp/mkbootimg.sh");
+set_perm(0, 0, 0755, "/tmp/mkbootimg");
+ui_print("");
+
+run_program("/tmp/mkbootimg.sh");
+ui_print("");
+
+ui_print("Flashing New boot.img ...");
+run_program("/tmp/dd", "if=/tmp/newboot.img", "of=/dev/block/mmcblk0p7");
+
+ui_print("Unpacking /lib/modules ... be patient");
+run_program("/sbin/busybox", "mkdir", "/external_sd");
+run_program("/sbin/busybox", "mount", "/dev/block/mmcblk1p1", "/external_sd");
+run_program("/sbin/busybox", "rm", "-r", "/external_sd/lib/modules/");
+package_extract_dir("lib", "/external_sd/lib");
+run_program("/sbin/busybox", "umount", "/external_sd");
+ui_print("");
+
+ui_print("Done!");
