@@ -220,7 +220,7 @@ reload_modules() {
 
 # fb-adb returns shell status
 prepare_adb() {
-	adb_do "push misc/stub /tmp/fb-adb" 3
+	adb_do "push misc/stub /tmp/fb-adb"
 	[ $? -ne 0 ] && return 1
 
 	adb_do "shell chmod 0755 /tmp/fb-adb"
