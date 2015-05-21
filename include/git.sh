@@ -22,26 +22,6 @@ checkout_branch() {
 	return $sts
 }
 
-pull() {
-	pushd $LINUX_KERNEL_SRC_DIR >/dev/null
-
-	local CURRENT_TAG="$(git describe --abbrev=0 --tags)"
-
-	eval_log "git pull --no-stat --no-edit '$REPO' '$REMOTE_BRANCH'"
-
-	local sts=$?
-
-	local NEW_TAG="$(git describe --abbrev=0 --tags)"
-
-	popd >/dev/null
-
-	[ "$CURRENT_TAG" != "$NEW_TAG" ]
-
-	UPDATED=$?
-
-	return $sts
-}
-
 kernel_version() {
 	pushd $LINUX_KERNEL_SRC_DIR >/dev/null
 
@@ -50,6 +30,24 @@ kernel_version() {
 	local sts=$?
 
 	popd >/dev/null
+
+	return $sts
+}
+
+pull() {
+	pushd $LINUX_KERNEL_SRC_DIR >/dev/null
+
+	local CURRENT_VER="$(kernel_version)"
+
+	eval_log "git pull --no-stat --no-edit '$REPO' '$REMOTE_BRANCH'"
+
+	local sts=$?
+
+	local NEW_VER="$(kernel_version)"
+
+	popd >/dev/null
+
+	[ "$CURRENT_VER" != "$NEW_VER" ] && UPDATED=1
 
 	return $sts
 }
