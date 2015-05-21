@@ -20,7 +20,7 @@ distribute() {
 
 	[ $? -eq 0 ] && return
 
-	reset_logs "distribute" "distribute"
+	reset_logs "distribute.txt" "distribute.txt"
 
 	ask_and_run "Post it?" "run 'Distributing' \"distribute_it '$ZIP_PATH' 'picasso_upstream_support'\" NO_STDREDIRECT"
 }

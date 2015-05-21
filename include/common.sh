@@ -22,8 +22,8 @@ install_modules() {
 reset_logs() {
 	mkdir -p "$OUTPUT_DIR"
 
-	LOG_FILE="$1.txt"
-	LOG_ERR_FILE="$2.txt"
+	LOG_FILE="$1"
+	LOG_ERR_FILE="$2"
 
 	truncate -s 0 "$OUTPUT_DIR/$LOG_FILE"
 	truncate -s 0 "$OUTPUT_DIR/$LOG_ERR_FILE"

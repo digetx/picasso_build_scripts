@@ -85,7 +85,7 @@ pack_zip() {
 }
 
 pack_flashable_zip() {
-	reset_logs "pack" "pack"
+	reset_logs "pac.txtk" "pack.txt"
 
 	run "Packing flashable zip" "pack_zip '$1'"
 }

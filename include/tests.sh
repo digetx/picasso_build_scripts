@@ -346,7 +346,7 @@ grab_gpios() {
 }
 
 test_kernel() {
-	reset_logs "tests" "tests"
+	reset_logs "tests.txt" "tests.txt"
 
 	print_log "tests started"
 

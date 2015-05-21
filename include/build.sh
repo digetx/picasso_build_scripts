@@ -19,7 +19,7 @@ run_build_kernel() {
 }
 
 build_kernel() {
-	reset_logs "build" "build_err"
+	reset_logs "build.txt" "build_err.txt"
 
 	run "Building kernel" "run_build_kernel"
 
