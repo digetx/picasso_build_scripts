@@ -21,6 +21,8 @@ run_update() {
 		FORCE_BUILD_TEST=${BRANCHES_REPO[i+6]}
 		UPDATED=0
 
+		reset_logs "" ""
+
 		MAKE_KERNEL="ARCH=arm CROSS_COMPILE='$CROSS_COMPILE' make"
 
 		[ $SKIP_PULL -eq 0 ] && [ $SKIP_BUILD -eq 0 ] && run "Cleaning src tree" "clean_src_tree"
