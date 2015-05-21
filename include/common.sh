@@ -25,8 +25,8 @@ reset_logs() {
 	LOG_FILE="$1"
 	LOG_ERR_FILE="$2"
 
-	truncate -s 0 "$OUTPUT_DIR/$LOG_FILE"
-	truncate -s 0 "$OUTPUT_DIR/$LOG_ERR_FILE"
+	[ -n "$LOG_FILE" ] && truncate -s 0 "$OUTPUT_DIR/$LOG_FILE"
+	[ -n "$LOG_FILE" ] && truncate -s 0 "$OUTPUT_DIR/$LOG_ERR_FILE"
 }
 
 print_log() {
