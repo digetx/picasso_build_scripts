@@ -34,10 +34,10 @@ BITBUCKET_REPO="bitbucket_upstream"
 
 #	local branch	repo		remote branch	SKIP_PULL	SKIP_BUILD	SKIP_TEST	FORCE_BUILD_TEST
 BRANCHES_REPO=(
-	"3.10-merge"	"stable"	"linux-3.10.y"	0		0		0		1
-	"3.12-merge"	"stable"	"linux-3.12.y"	0		0		0		1
-	"3.14-merge"	"stable"	"linux-3.14.y"	0		0		0		1
-	"3.18-merge"	"stable"	"linux-3.18.y"	0		0		0		1
-	"3.19-merge"	"stable"	"linux-3.19.y"	0		0		0		1
-	"4.0-merge"	"stable"	"linux-4.0.y"	0		0		0		1
+	"3.10-merge"	"stable"	"linux-3.10.y"	0		0		0		0
+	"3.12-merge"	"stable"	"linux-3.12.y"	0		0		0		0
+	"3.14-merge"	"stable"	"linux-3.14.y"	0		0		0		0
+	"3.18-merge"	"stable"	"linux-3.18.y"	0		0		0		0
+	"3.19-merge"	"stable"	"linux-3.19.y"	0		0		0		0
+	"4.0-merge"	"stable"	"linux-4.0.y"	0		0		0		0
 )
