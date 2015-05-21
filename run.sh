@@ -49,9 +49,9 @@ run_update() {
 		fi
 
 		echo ""
-	done
 
-	reset_logs "" ""
+		reset_logs "" ""
+	done
 }
 
 run_update
