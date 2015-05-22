@@ -13,10 +13,9 @@ distribute_it() {
 }
 
 distribute() {
-	local zip_fname="linux_kernel_$(echo $KERNEL_VER | sed 's/-.*//')"
-	local ZIP_PATH="$OUTPUT_DIR/$zip_fname.zip"
+	local ZIP_PATH="$OUTPUT_DIR/$1.zip"
 
-	ask_and_run "Pack zip?" "pack_flashable_zip '$ZIP_PATH'"
+	ask_and_run "Pack zip?" "pack_flashable_zip '$ZIP_PATH' '$2'"
 
 	[ $? -eq 0 ] && return
 

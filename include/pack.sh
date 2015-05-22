@@ -65,7 +65,7 @@ pack_zip() {
 
 	[ $? -eq 0 ] && cp -r misc/flash/* "$out_dir"
 
-	[ $? -eq 0 ] && echo "$KERNEL_RELEASE_CMDLINE" > "$out_dir/kernel/CMDLINE"
+	[ $? -eq 0 ] && echo "$2" > "$out_dir/kernel/CMDLINE"
 
 	[ $? -eq 0 ] && mv "$kernel" "$out_dir/kernel/zImage"
 
@@ -87,6 +87,6 @@ pack_zip() {
 pack_flashable_zip() {
 	reset_logs "pack.txt" "pack.txt"
 
-	run "Packing flashable zip" "pack_zip '$1'"
+	run "Packing flashable zip" "pack_zip '$1' '$2'"
 }
 

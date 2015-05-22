@@ -5,6 +5,10 @@ Kernel {$KVER} release
 [u]Notes:[/u]
 * This is upstream-based kernel release. Proprietary NVIDIA driver won't work with it.
 
+* This kernel release [b]supports[/b] proprietary NVIDIA driver.
+
+* Only HDMI output supported. Panel support starts from 3.14 kernel release.
+
 * Due to driver issue, wifi will be lost after resume from suspend. To recover it run following commands from terminal
 [code]#rfkill block 0
 #rfkill unblock 0[/code]

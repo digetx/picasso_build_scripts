@@ -52,7 +52,7 @@ upload_kernel_modules() {
 	install_modules "$tmpdir"
 
 	[ $? -eq 0 ] && adb_do "shell mkdir -p '$sdcard'"
-	[ $? -eq 0 ] && adb_do "shell mount '$SDCARD_PARTITION_PATH' '$sdcard'"
+	[ $? -eq 0 ] && adb_do "shell mount -rw '$ROOTFS_PARTITION_PATH' '$sdcard'"
 	[ $? -eq 0 ] && adb_do "shell rm -r '$sdcard/lib/modules/*'"
 	[ $? -eq 0 ] && adb_do "push '$tmpdir/lib' '$sdcard/lib/'"
 
@@ -174,7 +174,7 @@ setup_usbnet() {
 	ping_dev "10.1.1.3"
 	[ $? -eq 0 ] && return 0
 
-	run_ssh 'modprobe -r g_ether && modprobe g_ether && ifconfig usb0 10.1.1.3/27'
+	run_ssh 'modprobe -r g_ether && modprobe g_ether && sleep 2 && ifconfig usb0 10.1.1.3/27'
 
 	[ $? -eq 0 ] && sleep 1
 
@@ -353,7 +353,7 @@ test_kernel() {
 	local bootimg="$(mktemp)"
 	[ $? -ne 0 ] && return 1
 
-	run "[Testing] Packing bootimg" "pack_bootimg '$bootimg' '$KERNEL_TEST_CMDLINE'"
+	run "[Testing] Packing bootimg" "pack_bootimg '$bootimg' '$1'"
 
 	if ! ping_dev "$NET_ADDR"; then
 		run "[Testing] Preparing adb"            "prepare_adb"
@@ -365,8 +365,9 @@ test_kernel() {
 		run "[Testing] Flashing bootimg"         "ssh_flash_bootimg '$bootimg'"
 		run "[Testing] Uploading kernel modules" "ssh_upload_kernel_modules"
 		run "[Testing] Rebooting"                "ssh_reboot"
-		sleep 20
 	fi
+
+	sleep 60
 
 	rm "$bootimg"
 

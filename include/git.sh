@@ -63,3 +63,17 @@ do_git_push() {
 git_push() {
 	ask_and_run "Push to $1?" "do_git_push '$1' '$2'"
 }
+
+detach_and_merge_downstream() {
+	pushd $LINUX_KERNEL_SRC_DIR >/dev/null
+
+	eval_log "git checkout -f --detach '$LOCAL_BRANCH'"
+
+	[ $? -eq 0 ] && eval_log "git merge '$DOWNSTREAM_VIDEO'"
+
+	local sts=$?
+
+	popd >/dev/null
+
+	return $sts
+}

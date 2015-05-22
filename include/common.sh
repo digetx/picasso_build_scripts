@@ -11,17 +11,15 @@ install_modules() {
 
 	popd >/dev/null
 
-	find "$1" -type f -name '*.ko' -exec gzip "{}" \;
-	[ $? -ne 0 ] && exit 1
-
-	/sbin/depmod -b "$1" "$KERNEL_VER"
+# 	find "$1" -type f -name '*.ko' -exec gzip "{}" \;
+# 	[ $? -ne 0 ] && exit 1
+# 
+# 	/sbin/depmod -b "$1" "$KERNEL_VER"
 
 	return $?
 }
 
 reset_logs() {
-	mkdir -p "$OUTPUT_DIR"
-
 	LOG_FILE="$1"
 	LOG_ERR_FILE="$2"
 
@@ -89,10 +87,15 @@ run() {
 	[ -n "$imm_txt" ] && echo -e "$imm_txt"
 
 	[ $sts -ne 0 ] && echo -e "$err_txt"
-	[ $sts -ne 0 ] && exit $sts
+	[ $sts -eq 0 ] && return
+
+	ask_yes_no "Retry?"
+	[ $? -eq 0 ] && exit $sts
+
+	run "$1" "$2" "$3"
 }
 
-ask_and_run() {
+ask_yes_no() {
 	while [ 1 ]
 	do
 		read -p "$1 Y/n: "
@@ -101,9 +104,17 @@ ask_and_run() {
 		fi
 
 		if [ -z "$REPLY" ] || [[ $REPLY =~ ^[Yy]$ ]]; then
-			eval "$2"
-
 			return 1
 		fi
 	done
+}
+
+ask_and_run() {
+	ask_yes_no "$1"
+
+	local sts=$?
+
+	[ $sts -eq 1 ] && eval "$2"
+
+	return $sts
 }
