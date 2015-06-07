@@ -13,6 +13,7 @@ MAKE_KERNEL="ARCH=arm CROSS_COMPILE='$CROSS_COMPILE' make"
 
 build_and_dist() {
 	KERNEL_VER="$(kernel_version)"
+	KERNEL_VER_STRIPPED="$(echo $KERNEL_VER | sed 's/-.*//')"
 
 	OUTPUT_DIR="$BUILD_OUT_DIR/$LOCAL_BRANCH/$KERNEL_VER$3"
 	mkdir -p "$OUTPUT_DIR"
@@ -22,7 +23,7 @@ build_and_dist() {
 	[ $SKIP_BUILD -eq 0 ] && build_kernel
 	[ $SKIP_TEST  -eq 0 ] && test_kernel "$1"
 
-	local zip_fname="linux_kernel_$(echo $KERNEL_VER | sed 's/-.*//')"
+	local zip_fname="linux_kernel_$KERNEL_VER_STRIPPED"
 
 	distribute "$zip_fname$3" "$2"
 }

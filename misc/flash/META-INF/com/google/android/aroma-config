@@ -1,0 +1,60 @@
+ini_set("dp","4");
+
+loadlang("langs/en.lang");
+fontresload( "0", "ttf/DroidSans.ttf", "12" );
+fontresload( "1", "ttf/DroidSans.ttf", "18" );
+
+theme("franzyroy");
+
+viewbox(
+  "<~welcome.title>",
+  "<~welcome.text1> <b>A50x Tegraowners Linux Kernel Installer</b>\n\n"+
+  "<~welcome.next>",
+
+  "icons/welcome"
+);
+
+selectbox(
+  "choose linux rootfs location",
+  "Please select the one you use",
+  "icons/default",
+  "rootfspath.prop",
+
+  "First partition of microsd (default)","",1,
+  "Second partition of microsd","",0,
+  "Third partition of microsd","",0
+);
+
+selectbox(
+  "choose linux boot type",
+  "Please select the one you use",
+  "icons/default",
+  "kernel_install_method.prop",
+
+  "Using custom boot menu","",0,
+  "Booting directly from second boot partition (default)","",1
+);
+
+viewbox(
+  "Ready To Install",
+  "All necessary information has been collected.\n\n"+
+  "Click Next to start installation.",
+  "icons/info"
+);
+
+install(
+  "Installing...",
+  "Installing... Please wait",
+  "icons/install"
+);
+
+# Set Next Text fo Finish
+ini_set("text_next", "Finish");
+
+viewbox(
+  "Installation Completed",
+  "<#080>Congratulations!</#>\n\n"+
+  "Linux kernel has been installed.\n\n"+
+  "Press Finish.\n\nEnjoy!",
+  "icons/info"
+);

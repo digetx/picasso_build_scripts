@@ -10,13 +10,13 @@ DTB_FILE="tegra20-picasso.dtb"
 
 BUILD_OUT_DIR="/home/dima/vl/picasso_build_scripts/build"
 
-KERNEL_TEST_CMDLINE="rootwait rw root=/dev/mmcblk0p1 cma=48M gpt gpt_sector=31258623 zswap.enabled=1 no_console_suspend=1"
+KERNEL_TEST_CMDLINE="rootwait root=/dev/disk/by-path/platform-c8000400.sdhci-part1 rw cma=48M gpt gpt_sector=31258623 zswap.enabled=1 no_console_suspend=1"
 
 KERNEL_TEST_DOWNSTREAM_CMDLINE="rootwait rw root=/dev/sda1 gpt gpt_sector=31258623 zswap.enabled=1 no_console_suspend=1"
 
-KERNEL_RELEASE_CMDLINE="rootwait rw root=/dev/mmcblk0p1 cma=64M gpt gpt_sector=31258623"
+KERNEL_RELEASE_CMDLINE="rootwait rw cma=64M gpt gpt_sector=31258623"
 
-KERNEL_RELEASE_DOWNSTREAM_CMDLINE="rootwait rw root=/dev/mmcblk0p1 gpt gpt_sector=31258623"
+KERNEL_RELEASE_DOWNSTREAM_CMDLINE="rootwait rw gpt gpt_sector=31258623"
 
 NET_ADDR="192.168.1.43"
 

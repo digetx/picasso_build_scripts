@@ -17,7 +17,7 @@ pack_bootimg() {
 	local kernel="$(mk_kernel_dtb_appended)"
 	[ $? -ne 0 ] && return 1
 
-	local ramdisk='NONE'
+	local ramdisk="$(pwd)/misc/flash/kernel/init.cpio"
 
 	[ -n "$3" ] && ramdisk="$3"
 
@@ -66,6 +66,8 @@ pack_zip() {
 	[ $? -eq 0 ] && cp -r misc/flash/* "$out_dir"
 
 	[ $? -eq 0 ] && echo "$2" > "$out_dir/kernel/CMDLINE"
+
+	[ $? -eq 0 ] && echo "$KERNEL_VER_STRIPPED" > "$out_dir/kernel/KVER"
 
 	[ $? -eq 0 ] && mv "$kernel" "$out_dir/kernel/zImage"
 
