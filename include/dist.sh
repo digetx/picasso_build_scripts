@@ -1,5 +1,6 @@
 distribute_it() {
-	eval "bbpost -user '$BUSR' -pass '$BPWD' -proj '$2' -post '$1'"
+# 	eval "bbpost -user '$BUSR' -pass '$BPWD' -proj '$2' -post '$1'"
+	perl bb_post.pl "$2" "$1"
 
 	[ $? -ne 0 ] && return 1
 
