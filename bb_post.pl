@@ -46,15 +46,15 @@ sub post {
 	my $retries = 3;
 
 RETRY:
-	my $token = get_token("https://bitbucket.org/digetx/$proj/downloads");
+	my $token = get_token("https://bitbucket.org/$BUSR/$proj/downloads");
 
-	my $res = $ua->post("https://bitbucket.org/digetx/$proj/downloads",
+	my $res = $ua->post("https://bitbucket.org/$BUSR/$proj/downloads",
 		[ 'csrfmiddlewaretoken'	=> "$token",
 		  'token'		=> "",
 		  'files'		=> ["$file_path"],
 		],
 		Content_Type => 'form-data',
-		referer => "https://bitbucket.org/digetx/$proj/downloads",
+		referer => "https://bitbucket.org/$BUSR/$proj/downloads",
 	);
 
 	return if ($res->decoded_content =~ /$file_name/);
