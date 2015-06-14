@@ -345,6 +345,12 @@ grab_gpios() {
 	return $?
 }
 
+test_dpms() {
+	run_ssh "DISPLAY=:0 xset dpms force suspend && sleep 3 && DISPLAY=:0 xset dpms force on"
+
+	return $?
+}
+
 test_kernel() {
 	reset_logs "tests.txt" "tests.txt"
 
@@ -400,6 +406,8 @@ test_kernel() {
 	run "[Testing] Grabbing cpuidle stats"    "grab_cpuidle_stats"
 
 	run "[Testing] Grabbing GPIO's state"     "grab_gpios"
+
+	run "[Testing] DPMS"                      "test_dpms"
 
 # 	run "[Testing] Rebooting"                 "ssh_reboot"
 
