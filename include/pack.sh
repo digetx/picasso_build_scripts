@@ -71,6 +71,8 @@ pack_zip() {
 
 	[ $? -eq 0 ] && mv "$kernel" "$out_dir/kernel/zImage"
 
+	[ $? -eq 0 ] && sed -i "s#__KVER__#$KERNEL_VER_STRIPPED#" "$out_dir/META-INF/com/google/android/aroma-config"
+
 	[ $? -eq 0 ] && install_modules "$out_dir"
 
 	[ $? -eq 0 ] && zip_it "$zip_file" "$out_dir"

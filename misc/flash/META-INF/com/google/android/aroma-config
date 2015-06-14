@@ -8,7 +8,7 @@ theme("franzyroy");
 
 viewbox(
   "<~welcome.title>",
-  "<~welcome.text1> <b>A50x Tegraowners Linux Kernel Installer</b>\n\n"+
+  "<~welcome.text1> <b>Linux kernel __KVER__</b>\n\n"+
   "<~welcome.next>",
 
   "icons/welcome"
@@ -54,7 +54,7 @@ ini_set("text_next", "Finish");
 viewbox(
   "Installation Completed",
   "<#080>Congratulations!</#>\n\n"+
-  "Linux kernel has been installed.\n\n"+
+  "Linux kernel __KVER__ has been installed.\n\n"+
   "Press Finish.\n\nEnjoy!",
   "icons/info"
 );
