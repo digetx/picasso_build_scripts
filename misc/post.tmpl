@@ -13,6 +13,7 @@ Kernel {$KVER} release
 [code]#rfkill block 0
 #rfkill unblock 0[/code]
 If doesn't help, try again. If still doesn't help (very unlikely) - reboot. Hopefully, it will get fixed in future releases.
+Or change your suspend util scripts to unload wifi kernel module before suspend and reload after.
 
 * Let us know if you have any trouble or kernel config lacks some module/feature. Code contributions are welcome as well.
 
