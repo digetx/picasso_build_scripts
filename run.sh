@@ -13,7 +13,7 @@ MAKE_KERNEL="ARCH=arm CROSS_COMPILE='$CROSS_COMPILE' make"
 
 build_and_dist() {
 	KERNEL_VER="$(kernel_version)"
-	KERNEL_VER_STRIPPED="$(echo $KERNEL_VER | sed 's/-.*//')"
+	KERNEL_VER_STRIPPED="$(echo $KERNEL_VER | grep -Po '^[\d\.]+')"
 
 	OUTPUT_DIR="$BUILD_OUT_DIR/$LOCAL_BRANCH/$KERNEL_VER$3"
 	mkdir -p "$OUTPUT_DIR"

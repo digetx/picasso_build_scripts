@@ -6,7 +6,7 @@ distribute_it() {
 
 	local url="https://bitbucket.org/digetx/$2/downloads/$(basename "$1")"
 
-	perl post.pl "$(echo $KERNEL_VER | sed 's/-.*//')" "$url"
+	perl post.pl "$(echo $KERNEL_VER | grep -Po '^[\d\.]+')" "$url"
 
 	[ $? -eq 0 ] && print_log "success $url"
 
