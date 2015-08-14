@@ -171,16 +171,16 @@ ping_dev() {
 setup_usbnet() {
 	print_log "checking usbnet"
 
-	ping_dev "10.1.1.3"
+	ping_dev "$USB_NET_ADDR"
 	[ $? -eq 0 ] && return 0
 
-	run_ssh 'modprobe -r g_ether && modprobe g_ether && sleep 2 && ifconfig usb0 10.1.1.3/27'
+	run_ssh "modprobe -r g_ether && modprobe g_ether && sleep 2 && ifconfig usb0 $USB_NET_ADDR/$USB_NET_SUBNET_MASK"
 
 	[ $? -eq 0 ] && sleep 1
 
-	[ $? -eq 0 ] && sudo ifconfig $USB_IF 10.1.1.5/27
+	[ $? -eq 0 ] && sudo ifconfig $USB_IF $USB_NET_LOCAL_ADDR/$USB_NET_SUBNET_MASK
 
-	[ $? -eq 0 ] && ping -c3 10.1.1.3 >&2
+	[ $? -eq 0 ] && ping -c3 $USB_NET_ADDR >&2
 
 	return $?
 }
@@ -288,10 +288,10 @@ ssh_flash_bootimg() {
 
 	local bootimg=$1
 
-	sshpass -p "$SSH_PASS" scp "$bootimg" "$SSH_USER@10.1.1.3":/tmp/bootimg
+	sshpass -p "$SSH_PASS" scp "$bootimg" "$SSH_USER@$USB_NET_ADDR":/tmp/bootimg
 	[ $? -ne 0 ] && return 1
 
-	sshpass -p "$SSH_PASS" ssh "$SSH_USER@10.1.1.3" "dd if=/tmp/bootimg of='$SSH_BOOTIMG_DST_PATH'"
+	sshpass -p "$SSH_PASS" ssh "$SSH_USER@$USB_NET_ADDR" "dd if=/tmp/bootimg of='$SSH_BOOTIMG_DST_PATH'"
 
 	return $?
 }
@@ -304,9 +304,9 @@ ssh_upload_kernel_modules() {
 
 	install_modules "$tmpdir"
 
-	[ $? -eq 0 ] && sshpass -p "$SSH_PASS" ssh "$SSH_USER@10.1.1.3" 'rm -r /lib/modules/*; exit 0'
-	[ $? -eq 0 ] && sshpass -p "$SSH_PASS" rsync -rl "$tmpdir/lib/modules" -e ssh "$SSH_USER@10.1.1.3":/lib
-	[ $? -eq 0 ] && sshpass -p "$SSH_PASS" ssh "$SSH_USER@10.1.1.3" 'sync'
+	[ $? -eq 0 ] && sshpass -p "$SSH_PASS" ssh "$SSH_USER@$USB_NET_ADDR" 'rm -r /lib/modules/*; exit 0'
+	[ $? -eq 0 ] && sshpass -p "$SSH_PASS" rsync -rl "$tmpdir/lib/modules" -e ssh "$SSH_USER@$USB_NET_ADDR":/lib
+	[ $? -eq 0 ] && sshpass -p "$SSH_PASS" ssh "$SSH_USER@$USB_NET_ADDR" 'sync'
 
 	local sts=$?
 
@@ -318,7 +318,9 @@ ssh_upload_kernel_modules() {
 }
 
 test_sound() {
-	sshpass -p "$SSH_PASS" scp "misc/32.mp3" "$SSH_USER@10.1.1.3":/tmp/32.mp3
+	local $ip=$1
+
+	sshpass -p "$SSH_PASS" scp "misc/32.mp3" "$SSH_USER@$1":/tmp/32.mp3
 	[ $? -ne 0 ] && return 1
 
 	run_ssh 'mplayer /tmp/32.mp3'
@@ -367,7 +369,7 @@ test_kernel() {
 		run "[Testing] Uploading kernel modules" "upload_kernel_modules"
 		run "[Testing] Rebooting"                "adb_reboot"
 	else
-		run "[Testing] Setting up usbnet"        "setup_usbnet"
+# 		run "[Testing] Setting up usbnet"        "setup_usbnet"
 		run "[Testing] Flashing bootimg"         "ssh_flash_bootimg '$bootimg'"
 		run "[Testing] Uploading kernel modules" "ssh_upload_kernel_modules"
 		run "[Testing] Rebooting"                "ssh_reboot"
@@ -393,7 +395,7 @@ test_kernel() {
 
 	run "[Testing] Setting up usbnet"         "setup_usbnet"
 
-	run "[Testing] Playing sound"             "test_sound"
+	run "[Testing] Playing sound"             "test_sound $USB_NET_ADDR"
 
 	run "[Testing] Wifi off/on"               "test_wifi_off_on"
 
