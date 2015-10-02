@@ -9,11 +9,7 @@ Kernel {$KVER} release
 
 * Only HDMI output supported. Panel support starts from 3.14 kernel release.
 
-* Due to driver issue, wifi will be lost after resume from suspend. To recover it run following commands from terminal
-[code]#rfkill block 0
-#rfkill unblock 0[/code]
-If doesn't help, try again. If still doesn't help (very unlikely) - reboot. Hopefully, it will get fixed in future releases.
-Or change your suspend util scripts to unload wifi kernel module before suspend and reload after.
+* Due to driver issue, wifi will be lost after resume from suspend. Change your suspend util scripts to unload wifi kernel module (brcmfmac) before suspend and reload after to workaround the issue. This issue should be fixed since 4.2.1+
 
 * Let us know if you have any trouble or kernel config lacks some module/feature. Code contributions are welcome as well.
 
