@@ -271,12 +271,17 @@ grab_cpuidle_stats() {
 }
 
 suspend_test() {
+	vercomp $KERNEL_VER_STRIPPED '4.2.0'
+	if [ $? -eq 2 ]; then
+		return 0
+	fi
+
 	print_log "suspending"
 
-	run_ssh "eval 'sleep 1 && rmmod brcmfmac && sleep 3 && rtcwake -s 5 -m mem && modprobe brcmfmac' &"
+	run_ssh "eval 'sleep 5 && rtcwake -s 10 -m mem' &"
 	[ $? -ne 0 ] && return 1
 
-	sleep 15
+	sleep 20
 
 	run_ssh 'dmesg --color=always | tail -n30' >&3
 
@@ -399,8 +404,6 @@ test_kernel() {
 
 	run "[Testing] Wifi off/on"               "test_wifi_off_on"
 
-# 	run "[Testing] Suspending"                "suspend_test"
-
 	run "[Testing] Grabbing dmesg"            "grab_dmesg"
 
 	run "[Testing] Grabbing /proc/interrupts" "grab_proc_interrupts"
@@ -410,6 +413,8 @@ test_kernel() {
 	run "[Testing] Grabbing GPIO's state"     "grab_gpios"
 
 	run "[Testing] DPMS"                      "test_dpms"
+
+	run "[Testing] Suspending"                "suspend_test"
 
 # 	run "[Testing] Rebooting"                 "ssh_reboot"
 
