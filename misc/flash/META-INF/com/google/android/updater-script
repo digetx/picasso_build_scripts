@@ -30,6 +30,11 @@ then
 	then
 		assert(run_program("/tmp/mkbootimg.sh", "/dev/disk/by-path/platform-c8000400.sdhci-part3") == 0);
 	endif;
+	if
+		file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "4"
+	then
+		assert(run_program("/tmp/mkbootimg.sh", "/dev/disk/by-path/platform-c8000600.sdhci-part8") == 0);
+	endif;
 
 	ui_print("Flashing kernel to /dev/block/mmcblk0p7");
 	assert(run_program("/sbin/dd", "if=/tmp/newboot.img", "of=/dev/block/mmcblk0p7") == 0);
@@ -55,6 +60,11 @@ then
 	then
 		assert(run_program("/tmp/install_kernel_flex.sh", "/dev/disk/by-path/platform-c8000400.sdhci-part3") == 0);
 	endif;
+	if
+		file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "4"
+	then
+		assert(run_program("/tmp/install_kernel_flex.sh", "/dev/disk/by-path/platform-c8000600.sdhci-part8") == 0);
+	endif;
 endif;
 
 ui_print("Installing kernel modules");
@@ -73,6 +83,11 @@ if
 	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "3"
 then
 	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk1p3") == 0);
+endif;
+if
+	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "4"
+then
+	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk0p8") == 0);
 endif;
 
 assert(package_extract_dir("lib", "/linux_root/lib"));

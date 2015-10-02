@@ -22,7 +22,8 @@ selectbox(
 
   "First partition of microsd (default)","",1,
   "Second partition of microsd","",0,
-  "Third partition of microsd","",0
+  "Third partition of microsd","",0,
+  "Data partition of internal storage","",0
 );
 
 selectbox(
