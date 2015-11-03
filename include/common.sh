@@ -89,10 +89,11 @@ run() {
 	[ $sts -ne 0 ] && echo -e "$err_txt"
 	[ $sts -eq 0 ] && return
 
-	ask_yes_no "Retry?"
-	[ $? -eq 0 ] && exit $sts
+	ask_yes_no_skip "Retry?"
+	local rsts=$?
 
-	run "$1" "$2" "$3"
+	[ $rsts -eq 0 ] && exit $sts
+	[ $rsts -eq 1 ] && run "$1" "$2" "$3"
 }
 
 ask_yes_no() {
@@ -105,6 +106,24 @@ ask_yes_no() {
 
 		if [ -z "$REPLY" ] || [[ $REPLY =~ ^[Yy]$ ]]; then
 			return 1
+		fi
+	done
+}
+
+ask_yes_no_skip() {
+	while [ 1 ]
+	do
+		read -p "$1 Y/n/[s]kip: "
+		if [[ $REPLY =~ ^[Nn]$ ]]; then
+			return 0
+		fi
+
+		if [ -z "$REPLY" ] || [[ $REPLY =~ ^[Yy]$ ]]; then
+			return 1
+		fi
+
+		if [ -z "$REPLY" ] || [[ $REPLY =~ ^[Ss]$ ]]; then
+			return 2
 		fi
 	done
 }
