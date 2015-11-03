@@ -285,7 +285,11 @@ suspend_test() {
 
 	run_ssh 'dmesg --color=always | tail -n30' >&3
 
-	return $?
+	local sts=$?
+
+	setup_usbnet
+
+	return $sts
 }
 
 ssh_flash_bootimg() {
