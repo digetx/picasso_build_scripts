@@ -378,9 +378,8 @@ test_kernel() {
 		run "[Testing] Uploading kernel modules" "upload_kernel_modules"
 		run "[Testing] Rebooting"                "adb_reboot"
 	else
-# 		run "[Testing] Setting up usbnet"        "setup_usbnet"
-		run "[Testing] Flashing bootimg"         "ssh_flash_bootimg '$bootimg'"
-		run "[Testing] Uploading kernel modules" "ssh_upload_kernel_modules"
+		run "[Testing] Flashing bootimg"         "setup_usbnet && ssh_flash_bootimg '$bootimg'"
+		run "[Testing] Uploading kernel modules" "setup_usbnet && ssh_upload_kernel_modules"
 		run "[Testing] Rebooting"                "ssh_reboot"
 	fi
 
@@ -388,7 +387,7 @@ test_kernel() {
 
 	rm "$bootimg"
 
-	run "[Testing] Waiting linux boot-up"     "wait_ssh"
+	run "[Testing] Waiting for linux boot-up" "wait_ssh"
 
 	run "[Testing] Checking kernel version"   "check_kernel_ver"
 
