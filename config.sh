@@ -49,5 +49,6 @@ BRANCHES_REPO=(
 	"3.18-merge"	"3.18-downstream-video"	"stable"	"linux-3.18.y"	0		0		0		0
 	"4.1-merge"	"4.1-downstream-video"	"stable"	"linux-4.1.y"	0		0		0		0
 	"4.2-merge"	"4.2-downstream-video"	"stable"	"linux-4.2.y"	0		0		0		0
-	"4.3-merge"	"4.3-downstream-video"	"stable"	"master"	0		0		0		0
+	"4.3-merge"	"4.3-downstream-video"	"stable"	"linux-4.3.y"	0		0		0		0
+	"4.4-merge"	"4.3-downstream-video"	"stable"	"linux-4.4.y"	0		0		0		0
 )
