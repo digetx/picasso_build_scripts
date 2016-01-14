@@ -20,9 +20,9 @@ selectbox(
   "icons/default",
   "rootfspath.prop",
 
-  "First partition of microsd (default)","",1,
-  "Second partition of microsd","",0,
-  "Third partition of microsd","",0,
+  "First partition of microSD (default)","",1,
+  "Second partition of microSD","",0,
+  "Third partition of microSD","",0,
   "Data partition of internal storage","",0
 );
 
