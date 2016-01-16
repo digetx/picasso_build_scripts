@@ -43,19 +43,24 @@ viewbox(
   "icons/info"
 );
 
+setvar("retstatus",
 install(
   "Installing...",
   "Installing... Please wait",
-  "icons/install"
+  "icons/install")
 );
 
 # Set Next Text fo Finish
 ini_set("text_next", "Finish");
 
-viewbox(
-  "Installation Completed",
-  "<#080>Congratulations!</#>\n\n"+
-  "Linux kernel __KVER__ has been installed.\n\n"+
-  "Press Finish.\n\nEnjoy!",
-  "icons/info"
-);
+if
+	getvar("retstatus") == "0"
+then
+	viewbox(
+	"Installation Completed",
+	"<#080>Congratulations!</#>\n\n"+
+	"Linux kernel __KVER__ has been installed.\n\n"+
+	"Press Finish.\n\nEnjoy!",
+	"icons/info"
+	);
+endif;
