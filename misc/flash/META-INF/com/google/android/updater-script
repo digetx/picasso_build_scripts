@@ -31,6 +31,8 @@ then
 	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk0p8") == 0);
 endif;
 
+set_progress(0.1);
+
 if
 	file_getprop("/tmp/aroma-data/kernel_install_method.prop","selected.0") == "2"
 then
@@ -61,6 +63,8 @@ then
 	assert(run_program("/sbin/dd", "if=/tmp/newboot.img", "of=/dev/block/mmcblk0p7") == 0);
 endif;
 
+set_progress(0.2);
+
 if
 	file_getprop("/tmp/aroma-data/kernel_install_method.prop","selected.0") == "1"
 then
@@ -88,7 +92,11 @@ then
 	endif;
 endif;
 
+set_progress(0.3);
+
 ui_print("Installing kernel modules");
+
+show_progress(0.69, "-100000");
 
 assert(package_extract_dir("lib", "/linux_root/lib"));
 assert(run_program("/sbin/busybox", "umount", "/linux_root") == 0);
