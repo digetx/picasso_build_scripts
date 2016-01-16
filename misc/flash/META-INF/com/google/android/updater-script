@@ -11,6 +11,27 @@ set_perm(0, 0, 0755, "/tmp/mkbootimg");
 ui_print("");
 
 if
+	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "1"
+then
+	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk1p1") == 0);
+endif;
+if
+	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "2"
+then
+	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk1p2") == 0);
+endif;
+if
+	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "3"
+then
+	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk1p3") == 0);
+endif;
+if
+	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "4"
+then
+	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk0p8") == 0);
+endif;
+
+if
 	file_getprop("/tmp/aroma-data/kernel_install_method.prop","selected.0") == "2"
 then
 	ui_print("Creating boot.img");
@@ -68,27 +89,6 @@ then
 endif;
 
 ui_print("Installing kernel modules");
-
-if
-	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "1"
-then
-	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk1p1") == 0);
-endif;
-if
-	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "2"
-then
-	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk1p2") == 0);
-endif;
-if
-	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "3"
-then
-	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk1p3") == 0);
-endif;
-if
-	file_getprop("/tmp/aroma-data/rootfspath.prop","selected.0") == "4"
-then
-	assert(run_program("/tmp/prepare_modules_install.sh", "/dev/block/mmcblk0p8") == 0);
-endif;
 
 assert(package_extract_dir("lib", "/linux_root/lib"));
 assert(run_program("/sbin/busybox", "umount", "/linux_root") == 0);
