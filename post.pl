@@ -2,7 +2,7 @@
 
 use File::Temp;
 use File::Slurp;
-use LWP::UserAgent;
+use LWP::UserAgent::Determined;
 use LWP::ConnCache;
 use HTTP::Cookies;
 use Text::Template;
@@ -14,7 +14,7 @@ use Env qw(FLOGIN FPASS FID TID);
 binmode(STDOUT, ':utf8');
 binmode(STDIN, ':utf8');
 
-my $ua = LWP::UserAgent->new();
+my $ua = LWP::UserAgent::Determined->new();
 $ua->conn_cache(LWP::ConnCache->new());
 $ua->cookie_jar(HTTP::Cookies->new());
 
