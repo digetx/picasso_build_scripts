@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 use File::Basename;
-use LWP::UserAgent;
+use LWP::UserAgent::Determined;
 use LWP::ConnCache;
 use HTTP::Cookies;
 use utf8;
@@ -12,7 +12,7 @@ use Env qw(BUSR BPWD);
 binmode(STDOUT, ':utf8');
 binmode(STDIN, ':utf8');
 
-my $ua = LWP::UserAgent->new(requests_redirectable => [ 'POST', 'GET' ]);
+my $ua = LWP::UserAgent::Determined->new(requests_redirectable => [ 'POST', 'GET' ]);
 $ua->conn_cache(LWP::ConnCache->new());
 $ua->cookie_jar(HTTP::Cookies->new());
 
