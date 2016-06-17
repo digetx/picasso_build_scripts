@@ -278,7 +278,7 @@ suspend_test() {
 
 	print_log "suspending"
 
-	run_ssh "eval 'sleep 5 && rtcwake -s 10 -m mem' &"
+	run_ssh "eval 'sleep 5 && rtcwake -s 10 -m mem -d rtc1' &"
 	[ $? -ne 0 ] && return 1
 
 	sleep 20
