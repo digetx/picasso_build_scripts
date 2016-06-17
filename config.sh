@@ -35,7 +35,7 @@ USB_PARTITION_PATH="/dev/block/sda1"
 
 BOOTIMG_DST_PATH="/dev/block/mmcblk0p7"
 
-SSH_BOOTIMG_DST_PATH="/dev/mmcblk1p7"
+SSH_BOOTIMG_DST_PATH="/dev/disk/by-path/platform-c8000600.sdhci-part7"
 
 GITHUB_REPO="github_upstream"
 
