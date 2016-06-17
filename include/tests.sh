@@ -403,7 +403,7 @@ test_kernel() {
 
 	run "[Testing] Setting up usbnet"         "setup_usbnet"
 
-	run "[Testing] Playing sound"             "test_sound $USB_NET_ADDR"
+# 	run "[Testing] Playing sound"             "test_sound $USB_NET_ADDR"
 
 	run "[Testing] Wifi off/on"               "test_wifi_off_on"
 
