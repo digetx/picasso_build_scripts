@@ -21,7 +21,7 @@ $ua->cookie_jar(HTTP::Cookies->new());
 sub forum_login {
 	my ($uname, $passw) = @_;
 
-	my $req = HTTP::Request->new(POST => 'http://forum.tegraowners.com/ucp.php?mode=login');
+	my $req = HTTP::Request->new(POST => 'https://forum.tegraowners.com/ucp.php?mode=login');
 	$req->content_type('application/x-www-form-urlencoded');
 	$req->content("login=Login&username=$uname&password=$passw");
 	my $res = $ua->request($req);
@@ -55,7 +55,7 @@ sub post {
 	my $retries = 2;
 
 RETRY:
-	my $res = $ua->get("http://forum.tegraowners.com/posting.php?mode=reply&f=$FID&t=$TID");
+	my $res = $ua->get("https://forum.tegraowners.com/posting.php?mode=reply&f=$FID&t=$TID");
 
 	my ($creation_time)	= ($res->decoded_content =~ /name="creation_time" value="(\d+)"/);
 	my ($form_token)	= ($res->decoded_content =~ /name="form_token" value="(\w+)"/);
@@ -71,7 +71,7 @@ RETRY:
 
 	sleep 5;
 
-	$res = $ua->post("http://forum.tegraowners.com/posting.php?mode=reply&f=$FID&t=$TID",
+	$res = $ua->post("https://forum.tegraowners.com/posting.php?mode=reply&f=$FID&t=$TID",
 		[ 'subject'		=> "$subject",
 		  'message'		=> "$txt",
 		  'creation_time'	=> "$creation_time",
