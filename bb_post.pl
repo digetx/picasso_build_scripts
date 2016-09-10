@@ -7,7 +7,7 @@ use HTTP::Cookies;
 use utf8;
 use strict;
 
-use Env qw(BUSR BPWD);
+use Env qw(BLOGIN BUSR BPWD);
 
 binmode(STDOUT, ':utf8');
 binmode(STDIN, ':utf8');
@@ -33,7 +33,7 @@ sub bb_login {
 	my $req = HTTP::Request->new(POST => 'https://bitbucket.org/account/signin/');
 	$req->referer('https://bitbucket.org/account/signin/');
 	$req->content_type('application/x-www-form-urlencoded');
-	$req->content("username=$BUSR&password=$BPWD&csrfmiddlewaretoken=$token&submit=");
+	$req->content("username=$BLOGIN&password=$BPWD&csrfmiddlewaretoken=$token&submit=");
 	my $res = $ua->request($req);
 
 	die 'Bitbucket login failed' if ($res->decoded_content !~ /log-out-link/);
